@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:insert="partials/navbar :: navbar">
+</nav>
+<header
+        th:insert="partials/header :: header">
+</header>
+
+<h1>Roll</h1>
+<ul>
+    <li><a href="/roll-dice/1">1</a></li>
+    <li><a href="/roll-dice/2">2</a></li>
+    <li><a href="/roll-dice/3">3</a></li>
+    <li><a href="/roll-dice/4">4</a></li>
+    <li><a href="/roll-dice/5">5</a></li>
+    <li><a href="/roll-dice/6">6</a></li>
+</ul>
+<h2 th:if="${n}">You guessed: <span th:text="${n}"></span></h2>
+<h2>Random number was: <span th:text="${random}"></span></h2>
+
+<footer th:insert="partials/footer :: footer">
+</footer>
+</body>
+</html>

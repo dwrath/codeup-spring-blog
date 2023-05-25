@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+<nav th:insert="partials/navbar :: navbar"></nav>
+<header th:insert="partials/header :: header"></header>
+<div class="container">
+    <div class="row">
+        <div th:if="${post}">
+            <span th:text="${post.title}"></span> - <span th:text="${post.body}"></span>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

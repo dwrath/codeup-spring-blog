@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/resets.css">
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="container justify-center">
+        <div class="row">
+            <div class="column justify-center">
+                <nav th:insert="partials/navbar :: navbar"></nav>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <header th:insert="partials/header :: header"></header>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <ul>
+                    <li th:each="post : ${posts}">
+                        <span th:text="${post.title}"></span> - <span th:text="${post.body}"></span>
+                    </li>
+                </ul>
+
+
+            </div>
+        </div>
+        <footer th:insert="partials/footer :: footer"></footer>
+    </div>
+</div>
+</body>
+</html>
