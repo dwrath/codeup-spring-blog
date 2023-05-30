@@ -5,12 +5,76 @@
 
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/resets.css">
+    <link rel="stylesheet" href="/css/create.css">
     <title>Title</title>
 </head>
 <body>
     <div class="page-wrapper">
-        <div class="container justify-center">
-            <div class="row">
+        <div class="container grow justify-center">
+            <div class="row grow">
+                <div class="column left-column">
+                    <div class="logo-wrapper">
+                        <h1 class="logo">Spring Blog</h1>
+                    </div>
+                    <div class="container create-title-body">
+                        <div class="row">
+                            <p class="create-title">
+                                Create a new post
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="create-body">
+                                Be creative!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-container">
+                        <div class="mySlides fade">
+                            <div class="numbertext">1 / 3</div>
+                            <div class="post-wrapper">
+                                <div class="row">
+                                    <h3 class="post-title">Laker Game</h3>
+                                </div>
+                                <div class="row">
+                                    <p class="post-body">I went to the lakers game and it was fun!</p>
+                                </div>
+                            </div>
+                            <div class="text">Example One</div>
+                            <div class="mySlides fade">
+                                <div class="numbertext">2 / 3</div>
+                                <div class="post-wrapper2">
+                                    <div class="row">
+                                        <h3 class="post-title">Title</h3>
+                                    </div>
+                                    <div class="row">
+                                        <p class="post-body">Body</p>
+                                    </div>
+                                </div>
+                                <div class="text">Example Two</div>
+                            </div>
+                            <div class="mySlides fade">
+                                <div class="numbertext">3 / 3</div>
+                                <div class="post-wrapper3">
+                                    <div class="row">
+                                        <h3 class="post-title">Title</h3>
+                                    </div>
+                                    <div class="row">
+                                        <p class="post-body">Body</p>
+                                    </div>
+                                </div>
+                                <div class="text">Example Three</div>
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                        </div>
+                    </div>
+                    <div style="text-align:center">
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                    </div>
+
+                </div>
                 <div class="column justify-center">
                     <form th:action="@{/posts/create}" method="post">
                         <label for="title">Title:</label>
@@ -25,6 +89,35 @@
             </div>
         </div>
     </div>
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
 
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.querySelectorAll(".mySlides");
+            let dots = document.querySelectorAll(".dot");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active";
+        }
+    </script>
 </body>
 </html>
