@@ -1,23 +1,27 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.post.Post;
+import com.codeup.codeupspringblog.post.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @Controller
 public class PostController {
+    private final PostRepository postDao;
+    ArrayList<Post> posts = new ArrayList<>();
+
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
+    }
+
     @GetMapping("/posts/index")
     public String index(Model model) {
-        ArrayList<Post> posts = new ArrayList<>();
         posts.add(new Post("Test", "This is a test post"));
         posts.add(new Post("Test 2", "This is a test post 2"));
-        model.addAttribute("posts", posts);
+        model.addAttribute("posts", postDao.findAll());
         return "posts/index";
     }
     @GetMapping("/posts/show/{id}")
@@ -28,13 +32,15 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
     public String createPostForm() {
         return "posts/create";
     }
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String createPost() {
-        return "posts/create";
+    public String createPost(@ModelAttribute("post") Post post, Model model) {
+        String title = post.getTitle();
+        String content = post.getBody();
+        posts.add(new Post(title, content));
+        postDao.save(post);
+        return "redirect:index";
     }
 }

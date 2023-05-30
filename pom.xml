@@ -11,8 +11,8 @@
     <groupId>com.codeup</groupId>
     <artifactId>codeup-spring-blog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>codeup-spring-bloc</name>
-    <description>codeup-spring-bloc</description>
+    <name>codeup-spring-blog</name>
+    <description>codeup-spring-blog</description>
     <properties>
         <java.version>17</java.version>
     </properties>
