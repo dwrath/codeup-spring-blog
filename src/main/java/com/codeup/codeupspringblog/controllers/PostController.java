@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @Controller
 public class PostController {
     private final PostRepository postDao;
-    ArrayList<Post> posts = new ArrayList<>();
 
     public PostController(PostRepository postDao) {
         this.postDao = postDao;
@@ -19,8 +18,6 @@ public class PostController {
 
     @GetMapping("/posts/index")
     public String index(Model model) {
-        posts.add(new Post("Test", "This is a test post"));
-        posts.add(new Post("Test 2", "This is a test post 2"));
         model.addAttribute("posts", postDao.findAll());
         return "posts/index";
     }
@@ -37,9 +34,6 @@ public class PostController {
     }
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute("post") Post post, Model model) {
-        String title = post.getTitle();
-        String content = post.getBody();
-        posts.add(new Post(title, content));
         postDao.save(post);
         return "redirect:index";
     }
