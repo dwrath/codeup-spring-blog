@@ -38,7 +38,7 @@ public class PostController {
     }
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute("post") Post post, Model model) {
-User user = userDao.findUserById(2L);
+        User user = userDao.findUserById(2L);
         Post userPost = new Post(post.getTitle(), post.getBody(), user);
         postDao.save(userPost);
         return "redirect:index";
