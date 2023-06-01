@@ -11,6 +11,9 @@
     <div class="row">
         <div th:if="${post}">
             <span th:text="${post.title}"></span> - <span th:text="${post.body}"></span>
+            <a th:href="@{|/posts/edit/${post.id}|}">
+                <button type="button">Edit</button>
+            </a>
         </div>
 
     </div>

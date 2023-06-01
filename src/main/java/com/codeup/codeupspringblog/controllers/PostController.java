@@ -27,7 +27,7 @@ public class PostController {
     }
     @GetMapping("/posts/show/{id}")
     public String showPost(@PathVariable int id, Model model) {
-        Post post = new Post("Test", "This is a test post using a path variable");
+        Post post = postDao.findPostById(id);
         model.addAttribute("post", post);
         return "posts/show";
     }
@@ -43,5 +43,24 @@ public class PostController {
         postDao.save(userPost);
         return "redirect:index";
     }
+    @GetMapping("/posts/edit/{id}")
+    public String editPostForm(@PathVariable("id") long id, Model model) {
+        Post post = postDao.findPostById(id);
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
+    @PostMapping("/posts/edit/{id}")
+    public String editPost(@ModelAttribute("post") Post post, @PathVariable("id") String id, Model model) {
+        Long postId = Long.valueOf(id);
+        Post existingPost = postDao.findPostById(postId);
+
+        existingPost.setTitle(post.getTitle());
+        existingPost.setBody(post.getBody());
+
+        postDao.save(existingPost);
+
+        return "redirect:/posts/show/{id}";
+    }
+
 
 }

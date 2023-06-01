@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/resets.css">
+    <title>Title</title>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="column">
+                    <div class="row">
+                        <h1 class="">Edit</h1>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <form th:action="@{|/posts/edit/${post.id}|}" method="post" th:object="${post}">
+                                <div class="row">
+                                    <label for="title">Title:</label>
+                                    <input type="text" th:field="*{title}" name="title" id="title" th:value="${post.title}">
+                                </div>
+                                <div class="row">
+                                    <label for="body">Body:</label>
+                                    <textarea th:field="*{body}" name="body" id="body" cols="30" rows="10" th:text = "${post.body}"></textarea>
+                                </div>
+                                <div class="row">
+                                    <input type="submit" value="Submit Edit">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

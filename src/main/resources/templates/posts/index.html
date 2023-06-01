@@ -23,7 +23,8 @@
             <div class="row">
                 <ul>
                     <li th:each="post : ${posts}">
-                        <span th:text="${post.title}"></span> - <span th:text="${post.body}"></span>
+                        <a th:href="@{|/posts/show/${post.id}|}"><h2 th:text="${post.title}"></h2></a>
+                        <p th:text="${post.body}"></p>
                     </li>
                 </ul>
 
