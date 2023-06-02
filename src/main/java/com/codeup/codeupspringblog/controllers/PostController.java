@@ -43,7 +43,7 @@ public class PostController {
         User user = userDao.findUserById(2L);
         Post userPost = new Post(post.getTitle(), post.getBody(), user);
         postDao.save(userPost);
-        emailService.prepareAndSend(userPost, "A new post has been created", "A new post has been created", "damian.wrather@gmail.com");
+        emailService.prepareAndSend(userPost, userPost.getTitle(), userPost.getBody(), user.getEmail());
         return "redirect:index";
     }
     @GetMapping("/posts/edit/{id}")
