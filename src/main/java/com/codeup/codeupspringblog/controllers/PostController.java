@@ -39,7 +39,7 @@ public class PostController {
         return "posts/create";
     }
     @PostMapping("/posts/create")
-    public String createPost(@ModelAttribute("post") Post post, Model model) {
+    public String createPost(@ModelAttribute("post") Post post) {
         User user = userDao.findUserById(2L);
         Post userPost = new Post(post.getTitle(), post.getBody(), user);
         postDao.save(userPost);
@@ -53,7 +53,7 @@ public class PostController {
         return "posts/edit";
     }
     @PostMapping("/posts/edit/{id}")
-    public String editPost(@ModelAttribute("post") Post post, @PathVariable("id") String id, Model model) {
+    public String editPost(@ModelAttribute("post") Post post, @PathVariable("id") String id) {
         Long postId = Long.valueOf(id);
         Post existingPost = postDao.findPostById(postId);
 
