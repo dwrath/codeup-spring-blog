@@ -12,6 +12,11 @@
       <div class="row justify-center">
         <div class="column shrink">
           <h1>Your Profile</h1>
+          <form th:action="@{/profile/change}" method="post">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" value="[[${user.email}]]">
+            <input type="submit" value="Change Email">
+          </form>
         </div>
       </div>
     </div>

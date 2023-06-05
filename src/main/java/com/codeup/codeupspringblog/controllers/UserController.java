@@ -2,6 +2,8 @@ package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
     private final UserRepository usersDao;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository usersDao) {
+    public UserController(UserRepository usersDao, PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
         this.usersDao = usersDao;
     }
 
@@ -29,9 +33,9 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerUser(@RequestParam(name = "username") String username, @RequestParam(name = "email") String email, @RequestParam(name = "password") String password) {
-        User user = new User(username, email, password);
-        usersDao.save(user);
-        return "redirect:index";
+        password = passwordEncoder.encode(password);
+        usersDao.save(new User(username, email, password));
+        return "redirect:/posts/create";
     }
 
     @GetMapping("/posts/user/{id}/ads")
@@ -41,8 +45,19 @@ public class UserController {
         return "posts/my_posts";
     }
     @GetMapping("posts/profile")
-    public String profile() {
+    public String profile(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
         return "posts/profile";
+    }
+    @PostMapping("posts/profile")
+    public String updateEmail(@RequestParam(name = "email") String email) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long id = user.getId();
+        user = usersDao.findUserById(id);
+        user.setEmail(email);
+        usersDao.save(user);
+        return "redirect:/posts/profile";
     }
 }
 

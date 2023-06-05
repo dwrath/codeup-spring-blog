@@ -16,17 +16,25 @@
         </div>
         <div class="container">
             <div class="row">
-                <ul>
-                    <li th:each="post : ${posts}">
-                        <a th:href="@{|/posts/show/${post.id}|}"><h2 th:text="${post.title}"></h2></a>
-                        <p th:text="${post.body}"></p>
-                    </li>
-                </ul>
-
-
+                <div class="column justify-center">
+                    <ul class="d-flex wrap spacing">
+                        <li class="card" th:each="post : ${posts}">
+                            <div class="card-wrapper">
+                                <div class="card">
+                                    <a th:href="@{|/posts/show/${post.id}|}"><h2 th:text="${post.title}"></h2></a>
+                                    <p class="description" th:text="${post.body}"></p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <footer th:insert="partials/footer :: footer"></footer>
+    </div>
+    <div class="container">
+        <div class="row justify-center footer">
+            <footer th:insert="partials/footer :: footer"></footer>
+        </div>
     </div>
 </div>
 </body>
